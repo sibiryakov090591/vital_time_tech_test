@@ -1,5 +1,5 @@
 "use client";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { DndContext, closestCenter, DragOverlay } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
@@ -58,6 +58,7 @@ const items: IListItem[] = [
 const DraggableList = () => {
   const [list, setList] = useState(items);
   const [activeItem, setActiveItem] = useState<IListItem>(null);
+  const [droppedItemId, setDroppedItemId] = useState<string>(null);
   const [placeholderIndex, setPlaceholderIndex] = useState<{
     current: number;
     active: number;
@@ -95,6 +96,9 @@ const DraggableList = () => {
         const newIndex = items.findIndex((item) => item.id === over.id);
         return arrayMove(items, oldIndex, newIndex);
       });
+
+      setDroppedItemId(active.id);
+      setTimeout(() => setDroppedItemId(null), 300);
     }
 
     setActiveItem(null);
@@ -117,6 +121,7 @@ const DraggableList = () => {
                 id={item.id}
                 item={item}
                 isDragging={activeItem?.id === item.id}
+                droppedItemId={droppedItemId}
                 placeholder={{
                   isShow: placeholderIndex?.current === index,
                   position:

@@ -6,6 +6,7 @@ import { FC } from "react";
 interface Props {
   id: string;
   item: IListItem;
+  droppedItemId: number;
   placeholder: {
     isShow: boolean;
     position: "top" | "bottom";
@@ -13,7 +14,7 @@ interface Props {
   };
 }
 
-const ListItem: FC<Props> = ({ id, item, placeholder }) => {
+const ListItem: FC<Props> = ({ id, item, placeholder, droppedItemId }) => {
   const {
     attributes,
     listeners,
@@ -32,7 +33,9 @@ const ListItem: FC<Props> = ({ id, item, placeholder }) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`flex relative items-center space-x-4 p-4 bg-white`}
+      className={`${
+        droppedItemId == item.id ? "list_item" : ""
+      } flex relative items-center space-x-4 p-4 bg-white`}
     >
       <div
         className={`${

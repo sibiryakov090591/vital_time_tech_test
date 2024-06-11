@@ -16,12 +16,24 @@
   animation: showUp 350ms ease-in-out;
 }
 
+.list_item {
+  animation: fadeIn 350ms ease-in-out;
+}
+
 @keyframes showUp {
   from {
     transform: translate(-48%, -50%);
   }
   to {
     transform: translate(-50%, -50%);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
